@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="between_movies">15dp</dimen>
+    <dimen name="between_poster_and_text">5dp</dimen>
+    <dimen name="movie_title">20sp</dimen>
+    <dimen name="movie_text">15sp</dimen>
+    <dimen name="poster_width">150dp</dimen>
+    <dimen name="poster_height">225dp</dimen>
+    <dimen name="big_poster_width">200dp</dimen>
+    <dimen name="big_poster_height">300dp</dimen>
+    <dimen name="between_text_title_and_text">10dp</dimen>
+</resources>

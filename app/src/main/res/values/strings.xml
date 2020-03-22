@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">Network</string>
+    <string name="movie_title">Название фильма</string>
+    <string name="movie_release_date_title">Дата выхода: </string>
+    <string name="movie_release_date">1970-01-01</string>
+    <string name="movie_genres">
+        Все, жанры, к, которым, можно, отнести, фильм, через, запятую
+    </string>
+    <string name="movie_genres_title">Жанры: </string>
+    <string name="movie_poster_description">Описание постера</string>
+    <string name="movie_details">
+        Описание фильма. Длинное и красочное. Загадочное и интригующее
+    </string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
