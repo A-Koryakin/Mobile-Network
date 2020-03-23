@@ -6,8 +6,11 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 
-class MovieListFragment (private var movies: List<Movie>, var listenerMovie: MovieListEventListener) : Fragment() {
+class MovieListFragment (var listenerMovie: MovieListEventListener) : Fragment() {
+    val movies = mutableListOf<MovieDTO>()
 
     private lateinit var viewOfFragmentMovieList: View
     private lateinit var recyclerView: RecyclerView
@@ -23,13 +26,29 @@ class MovieListFragment (private var movies: List<Movie>, var listenerMovie: Mov
         return viewOfFragmentMovieList
     }
 
-    private fun setMovies(movies: List<Movie>){
+    private fun setMovies(movies: List<MovieDTO>){
         viewManager = LinearLayoutManager(context)
         viewAdapter = MovieAdapter(movies, listenerMovie)
+
+        createHelper()
 
         recyclerView = viewOfFragmentMovieList.findViewById<RecyclerView>(R.id.recycler_view).apply {
             layoutManager = viewManager
             adapter = viewAdapter
         }
+    }
+
+    private fun createHelper() {
+        NetworkService.getMovieAPI().getAllMovies()
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeOn(Schedulers.io())
+            .subscribe ({
+                    result ->
+                movies.clear()
+                movies.addAll(result)
+                recyclerView.adapter?.notifyDataSetChanged()
+            }, { error ->
+                error.printStackTrace()
+            })
     }
 }

@@ -6,26 +6,19 @@ import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.squareup.picasso.Picasso
 
-class MovieAdapter(private val moviesDataset: List<Movie>, var listenerMovie: MovieListEventListener)
+class MovieAdapter(private val moviesDataset: List<MovieDTO>, var listenerMovie: MovieListEventListener)
     : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
 
     class MovieViewHolder(relativeLayout: RelativeLayout)
         : RecyclerView.ViewHolder(relativeLayout){
-        private val img: ImageView = relativeLayout.findViewById(R.id.img)
-        private val title: TextView = relativeLayout.findViewById(R.id.title)
-        private val releaseDate: TextView = relativeLayout.findViewById(R.id.release_date)
-        private val genres = relativeLayout.findViewById<TextView>(R.id.genres_list)
-
-        public lateinit var movie : Movie
-
-        fun setMovieData(_movie : Movie){
-            movie = _movie
-            img.setImageResource(movie.poster)
-            title.text = movie.title
-            releaseDate.text = movie.releaseDate.toString()
-            genres.text = movie.genres.joinToString()
-        }
+        val img: ImageView = relativeLayout.findViewById(R.id.img)
+        val title: TextView = relativeLayout.findViewById(R.id.title)
+        val releaseDate: TextView = relativeLayout.findViewById(R.id.release_date)
+        val genres = relativeLayout.findViewById<TextView>(R.id.genres_list)
+        val context = relativeLayout.context
+        var id = 0
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
@@ -34,7 +27,7 @@ class MovieAdapter(private val moviesDataset: List<Movie>, var listenerMovie: Mo
 
         val movieViewHolder = MovieViewHolder(relativeLayout)
 
-        relativeLayout.setOnClickListener {listenerMovie.onClick(movieViewHolder.movie)}
+        relativeLayout.setOnClickListener {listenerMovie.onClick(movieViewHolder.id + 1)}
 
         return movieViewHolder
     }
@@ -42,6 +35,10 @@ class MovieAdapter(private val moviesDataset: List<Movie>, var listenerMovie: Mo
     override fun getItemCount() = moviesDataset.size
 
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
-        holder.setMovieData(moviesDataset[position])
+        holder.id = position
+        Picasso.with(holder.context).load(moviesDataset[position].imageUrl).into(holder.img)
+        holder.title.text = moviesDataset[position].title
+        holder.releaseDate.text = moviesDataset[position].releaseDate.toString()
+        holder.genres.text = moviesDataset[position].genres.joinToString()
     }
 }

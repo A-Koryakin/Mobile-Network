@@ -1,8 +1,8 @@
 package com.example.mobile_network
 
+import android.net.Uri
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
-import java.net.URL
 import java.time.LocalDate
 
 data class MovieDTO(
@@ -11,11 +11,11 @@ data class MovieDTO(
     var title : String,
     @SerializedName("releaseDate")
     @Expose
-    var releaseDate : LocalDate,
+    var releaseDate : String,
     @SerializedName("genres")
     @Expose
     var genres : Array<String>,
     @SerializedName("imageUrl")
     @Expose
-    var imageUrl : URL
+    var imageUrl : String
 )

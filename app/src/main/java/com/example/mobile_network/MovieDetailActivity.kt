@@ -10,8 +10,8 @@ class MovieDetailActivity : AppCompatActivity() {
 
         val fragmentManager = supportFragmentManager
         val arg = intent.extras
-        val data: Movie = arg!!["movie"] as Movie
-        val movieDetailFragment = MovieDetailFragment(data)
+        val id: Int = arg!!["id"] as Int
+        val movieDetailFragment = MovieDetailFragment(id)
         fragmentManager.beginTransaction().add(R.id.constraint_layout, movieDetailFragment).commit()
     }
 }
